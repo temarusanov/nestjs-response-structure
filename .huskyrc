@@ -1,0 +1,6 @@
+{
+  "hooks": {
+    "pre-commit": "pretty-quick --pattern \"**/*.ts\" --staged --bail && npm run lint:ts",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  }
+}

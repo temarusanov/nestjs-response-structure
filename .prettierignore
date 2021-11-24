@@ -1,0 +1,5 @@
+# package and lock files
+/package*
+
+# changelog
+CHANGELOG.md
