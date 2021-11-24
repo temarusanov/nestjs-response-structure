@@ -50,6 +50,8 @@ async function bootstrap(): Promise<void> {
 ```ts
 // user.type.ts
 
+import { ResponsePayloadType } from 'nestjs-response-structure'
+
 @ObjectType({ isAbstract: true })
 class UserPayloadType {
     @Field(() => ID)
