@@ -4,11 +4,11 @@ import { ResponseError } from '../interfaces/response-error.interface'
 import { ResponsePayload } from '../interfaces/response-payload.interface'
 import { ResponseErrorType } from './response-error.type'
 
-export const ResponsePayloadType = <T>(
+export const ResponsesPayloadType = <T>(
     classRef: Type<T>,
 ): Type<ResponsePayload<T>> => {
     @ObjectType('ResponsesPayload', { isAbstract: true })
-    class ResponsePayloadType implements ResponsePayload<T> {
+    class ResponsesPayloadType implements ResponsePayload<T> {
         @Field(() => [classRef], { nullable: true })
         data?: T[]
 
@@ -16,5 +16,5 @@ export const ResponsePayloadType = <T>(
         error?: ResponseError
     }
 
-    return ResponsePayloadType
+    return ResponsesPayloadType
 }
