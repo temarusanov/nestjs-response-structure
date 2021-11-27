@@ -18,7 +18,8 @@ export class ResponseFilter implements GqlExceptionFilter {
 
         const { stack } = this._config
 
-        const stackMessage = stack === undefined || stack === true ? exception.stack : undefined
+        const stackMessage =
+            stack === undefined || stack === true ? exception.stack : undefined
 
         this._logger.error(`${message} (${description})`, exception.stack)
 
