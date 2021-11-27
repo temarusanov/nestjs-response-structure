@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/temarusanov/nestjs-response-structure/compare/v1.1.0...v1.1.1) (2021-11-27)
+
+
+### Bug Fixes
+
+* responses payload name and export fix ([e9cae7f](https://github.com/temarusanov/nestjs-response-structure/commit/e9cae7fb3e8aac3751ab12451643594dbbd4ad9d))
+
 # [1.1.0](https://github.com/temarusanov/nestjs-response-structure/compare/v1.0.0...v1.1.0) (2021-11-27)
 
 
