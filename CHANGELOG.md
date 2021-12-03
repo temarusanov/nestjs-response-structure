@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/temarusanov/nestjs-response-structure/compare/v1.1.1...v1.1.2) (2021-12-03)
+
+
+### Bug Fixes
+
+* ts was crying on T | T[] ([703ca57](https://github.com/temarusanov/nestjs-response-structure/commit/703ca57e9c21b19d194bb245125b690b9941b18c))
+
 ## [1.1.1](https://github.com/temarusanov/nestjs-response-structure/compare/v1.1.0...v1.1.1) (2021-11-27)
 
 
