@@ -12,8 +12,8 @@ export class ResponseErrorType implements ResponseError {
     @Field()
     message: string
 
-    @Field({ nullable: true })
-    description?: string
+    @Field()
+    description: string
 
     @Field({ nullable: true })
     stack?: string

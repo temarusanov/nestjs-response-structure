@@ -1,8 +1,15 @@
-import { Catch, ArgumentsHost, Logger, HttpException } from '@nestjs/common'
+import {
+    Catch,
+    ArgumentsHost,
+    Logger,
+    HttpException,
+    HttpStatus,
+} from '@nestjs/common'
 import { v4 as uuid } from 'uuid'
 import { GqlExceptionFilter } from '@nestjs/graphql'
-import { ResponseFilterConfig } from '../interfaces/response-filter-config.interface'
-import { ResponsePayload } from '../interfaces/response-payload.interface'
+import { ResponseFilterConfig, ResponsePayload, ErrorInfo } from '../interfaces'
+
+const NO_DESCRIPTION = 'No description provided'
 
 @Catch()
 export class ResponseFilter implements GqlExceptionFilter {
@@ -12,21 +19,28 @@ export class ResponseFilter implements GqlExceptionFilter {
 
     catch(exception: Error, host: ArgumentsHost): ResponsePayload<unknown> {
         const code =
-            exception instanceof HttpException ? exception.getStatus() : 500
+            exception instanceof HttpException
+                ? exception.getStatus()
+                : HttpStatus.INTERNAL_SERVER_ERROR
 
         const { message, description } = this._getErrorInfo(exception)
 
-        const { stack } = this._config
+        const { stack = true } = this._config
 
-        const stackMessage =
-            stack === undefined || stack === true ? exception.stack : undefined
+        const stackMessage = stack ? exception.stack : undefined
 
-        this._logger.error(`${message} (${description})`, exception.stack)
+        this._logger.error(
+            {
+                message,
+                description,
+            },
+            exception.stack,
+        )
 
         return {
             error: {
                 id: uuid(),
-                code: code,
+                code,
                 message,
                 description,
                 stack: stackMessage,
@@ -34,31 +48,31 @@ export class ResponseFilter implements GqlExceptionFilter {
         }
     }
 
-    private _getErrorInfo(exception: Error): {
-        message: string
-        description: string
-    } {
+    /**
+     * @summary Retrieves `message` and `description` that were originally sent to NestJS' `HttpException` constructor
+     * @param exception caught in `ResponseFilter`
+     * @returns `message` and `description` fields wrapped in object
+     */
+    private _getErrorInfo(exception: Error): ErrorInfo {
         const errorResponse =
             exception instanceof HttpException
-                ? (exception.getResponse() as any)
-                : null
+                ? exception.getResponse()
+                : undefined
 
-        if (typeof errorResponse === 'string' || errorResponse === null) {
+        if (typeof errorResponse === 'string') {
             return {
                 message: exception.name,
-                description: exception.message as string,
+                description: exception.message,
             }
         }
 
         return {
-            message:
-                'message' in errorResponse
-                    ? errorResponse['message']
-                    : exception.name,
-            description:
-                'description' in errorResponse
-                    ? errorResponse['description']
-                    : 'No description provided',
+            message: errorResponse.hasOwnProperty('message')
+                ? errorResponse['message']
+                : exception.name,
+            description: errorResponse.hasOwnProperty('description')
+                ? errorResponse['description']
+                : NO_DESCRIPTION,
         }
     }
 }
