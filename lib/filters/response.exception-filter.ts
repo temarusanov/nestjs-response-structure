@@ -15,7 +15,9 @@ const NO_DESCRIPTION = 'No description provided'
 export class ResponseFilter implements GqlExceptionFilter {
     private _logger = new Logger(ResponseFilter.name)
 
-    constructor(private readonly _config: ResponseFilterConfig) {}
+    constructor(
+        private readonly _config: ResponseFilterConfig = { stack: true },
+    ) {}
 
     catch(exception: Error, host: ArgumentsHost): ResponsePayload<unknown> {
         const code =
@@ -25,7 +27,7 @@ export class ResponseFilter implements GqlExceptionFilter {
 
         const { message, description } = this._getErrorInfo(exception)
 
-        const { stack = true } = this._config
+        const { stack } = this._config
 
         const stackMessage = stack ? exception.stack : undefined
 
@@ -55,9 +57,7 @@ export class ResponseFilter implements GqlExceptionFilter {
      */
     private _getErrorInfo(exception: Error): ErrorInfo {
         const errorResponse =
-            exception instanceof HttpException
-                ? exception.getResponse()
-                : undefined
+            exception instanceof HttpException ? exception.getResponse() : {}
 
         if (typeof errorResponse === 'string') {
             return {

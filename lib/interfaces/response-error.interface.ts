@@ -3,5 +3,5 @@ export interface ResponseError {
     code: number
     message: string
     description: string
-    stack?: unknown
+    stack?: string
 }
