@@ -6,11 +6,11 @@ import { ResponseErrorType } from './response-error.type'
 
 export const ResponsesPayloadType = <T>(
     classRef: Type<T>,
-    nullableList: true | NullableList = true,
+    options: { nullableList: boolean | NullableList } = { nullableList: false },
 ): Type<ResponsesPayload<T>> => {
     @ObjectType('ResponsesPayload', { isAbstract: true })
     class ResponsesPayloadType implements ResponsesPayload<T> {
-        @Field(() => [classRef], { nullable: nullableList })
+        @Field(() => [classRef], { nullable: options.nullableList })
         data?: T[]
 
         @Field(() => ResponseErrorType, { nullable: true })
