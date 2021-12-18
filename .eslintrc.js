@@ -12,7 +12,6 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',
-    'prettier/@typescript-eslint',
   ],
   root: true,
   env: {
@@ -111,6 +110,7 @@ module.exports = {
   },
   "ignorePatterns": [
     ".eslintrc.js",
+    "*.mocks.ts",
     '[0-9]*.ts' // not to lint migrations files, example: 152325322-create-db.ts
   ],
 };
