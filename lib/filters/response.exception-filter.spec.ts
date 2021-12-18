@@ -2,35 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { BadRequestException, HttpStatus } from '@nestjs/common'
 
 import { ResponseFilter } from './response.exception-filter'
-import { ResponseError } from '..'
-
-const mockLogger = {
-    log: (message: any, context?: string) => {},
-    error: (message: any, trace?: string, context?: string) => {},
-    warn: (message: any, context?: string) => {},
-    debug: (message: any, context?: string) => {},
-    verbose: (message: any, context?: string) => {},
-}
-const mockJson = jest.fn()
-const mockStatus = jest.fn().mockImplementation(() => ({
-    json: mockJson,
-}))
-const mockGetResponse = jest.fn().mockImplementation(() => ({
-    status: mockStatus,
-}))
-const mockHttpArgumentsHost = jest.fn().mockImplementation(() => ({
-    getResponse: mockGetResponse,
-    getRequest: jest.fn(),
-}))
-
-const mockArgumentsHost = {
-    switchToHttp: mockHttpArgumentsHost,
-    getArgByIndex: jest.fn(),
-    getArgs: jest.fn(),
-    getType: jest.fn(),
-    switchToRpc: jest.fn(),
-    switchToWs: jest.fn(),
-}
+import { mockArgumentsHost, mockLogger } from '../test/__mocks__/common.mocks'
 
 describe('Response exception filter suite', () => {
     let exceptionFilter: ResponseFilter
