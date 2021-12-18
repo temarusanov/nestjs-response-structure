@@ -19,7 +19,8 @@ export class ResponseFilter implements GqlExceptionFilter {
         private readonly _config: ResponseFilterConfig = { stack: true },
     ) {}
 
-    catch(exception: Error, host: ArgumentsHost): ResponsePayload<unknown> {
+    catch(exception: Error, _host: ArgumentsHost): ResponsePayload<unknown> {
+        const id = uuid()
         const code =
             exception instanceof HttpException
                 ? exception.getStatus()
@@ -33,6 +34,7 @@ export class ResponseFilter implements GqlExceptionFilter {
 
         this._logger.error(
             {
+                id,
                 message,
                 description,
             },
@@ -41,7 +43,7 @@ export class ResponseFilter implements GqlExceptionFilter {
 
         return {
             error: {
-                id: uuid(),
+                id,
                 code,
                 message,
                 description,
