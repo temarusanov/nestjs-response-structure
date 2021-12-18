@@ -6,7 +6,7 @@ import { ResponseErrorType } from './response-error.type'
 
 /**
  *
- * @param classRef Initial class with `@Field` decorator
+ * @param classRef Initial class with `@ObjectType` decorator
  * @param options nullability options, returning `[Type]!` or `[Type!]!` is disallowed due to nature of response structure -
  * `data` field will always be (`GraphQL`-wise) null when error is thrown
  *
