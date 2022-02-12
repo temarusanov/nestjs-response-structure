@@ -9,13 +9,44 @@ GraphQL Types and interfaces for great response. The library provides types for 
 - Detailed error information including uuid, description, code, message and stacktrace
 - Stacktrace can be disabled in any time. Example: production mode
 
-**Success response:**
+**Example success response:**
 
-![image](https://i.ibb.co/BgXh0sC/photo-2021-11-24-16-55-43.jpg)
+```json
+{
+    "data": {
+        "users": {
+            "createUser": {
+                "data": {
+                    "id": "b9bec407-7f65-4586-869c-4d72b85c7624",
+                    "name": "tema"
+                },
+                "error": null
+            }
+        }
+    }
+}
+```
 
-**Error response:**
+**Example error response:**
 
-![image](https://i.ibb.co/vzVJstR/photo-2021-11-24-16-57-17.jpg)
+```json
+{
+    "data": {
+        "users": {
+            "getUser": {
+                "data": null,
+                "error": {
+                    "id": "c1b2e2fc-348a-4f14-96e0-5c196bf8e149",
+                    "message": "USER_NOT_FOUND",
+                    "code": 404,
+                    "description": "User not found with id 6cb26c8d-f6ab-4b7f-9bfa-f6703cbc17e2",
+                    "stack": null
+                }
+            }
+        }
+    }
+}
+```
 
 ## Installation
 
