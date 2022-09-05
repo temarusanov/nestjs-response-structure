@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/temarusanov/nestjs-response-structure/compare/v2.0.0...v2.1.0) (2022-09-05)
+
+
+### Features
+
+* move nest deps to peerDeps ([21adb85](https://github.com/temarusanov/nestjs-response-structure/commit/21adb85506f4ec8ef2f69056a09db03e04bde1e3))
+
 # [2.0.0](https://github.com/temarusanov/nestjs-response-structure/compare/v1.1.2...v2.0.0) (2021-12-28)
 
 
